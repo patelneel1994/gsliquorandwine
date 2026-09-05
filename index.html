@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <title>G & S Liquor & Wines | Coming Soon</title>
+  <meta name="description" content="G & S Liquor & Wines Lottery Station — our new website is coming soon.">
+  <style>
+    :root{
+      --bg:#070707;
+      --panel:#11100f;
+      --gold:#d7ad62;
+      --gold-light:#f1d59a;
+      --cream:#f4ead7;
+      --muted:#b9b0a1;
+      --line:rgba(215,173,98,.28);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    html{scroll-behavior:smooth}
+
+    body{
+      min-height:100vh;
+      font-family:Georgia, "Times New Roman", serif;
+      color:var(--cream);
+      background:
+        radial-gradient(circle at 50% 10%, rgba(215,173,98,.12), transparent 30%),
+        radial-gradient(circle at 15% 85%, rgba(112,54,23,.14), transparent 28%),
+        linear-gradient(135deg,#050505 0%,#11100e 48%,#050505 100%);
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.12;
+      background-image:
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:70px 70px;
+      mask-image:linear-gradient(to bottom,black,transparent 80%);
+    }
+
+    .shell{
+      width:min(1180px, calc(100% - 36px));
+      min-height:100vh;
+      margin:auto;
+      display:flex;
+      align-items:center;
+      padding:42px 0;
+    }
+
+    .card{
+      width:100%;
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012) 45%,rgba(0,0,0,.22)),
+        rgba(12,11,10,.88);
+      box-shadow:0 35px 100px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:12px;
+      border:1px solid rgba(215,173,98,.12);
+      border-radius:20px;
+      pointer-events:none;
+    }
+
+    .topline{
+      height:4px;
+      background:linear-gradient(90deg,transparent,var(--gold),#fff0bd,var(--gold),transparent);
+    }
+
+    .content{
+      display:grid;
+      grid-template-columns: 1.02fr .98fr;
+      min-height:700px;
+    }
+
+    .brand{
+      padding:70px 58px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      border-right:1px solid rgba(215,173,98,.14);
+      position:relative;
+    }
+
+    .brand::after{
+      content:"";
+      position:absolute;
+      width:420px;
+      height:420px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(215,173,98,.10),transparent 67%);
+      filter:blur(10px);
+      z-index:0;
+    }
+
+    .logo-wrap{
+      position:relative;
+      z-index:1;
+      width:min(430px,82%);
+      aspect-ratio:1;
+      display:grid;
+      place-items:center;
+      margin-bottom:34px;
+      filter:drop-shadow(0 22px 32px rgba(0,0,0,.65));
+    }
+
+    .logo-wrap::before{
+      content:"";
+      position:absolute;
+      inset:-12px;
+      border-radius:50%;
+      border:1px solid rgba(215,173,98,.25);
+      box-shadow:0 0 55px rgba(215,173,98,.08);
+    }
+
+    .logo{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      border-radius:50%;
+    }
+
+    .eyebrow{
+      position:relative;
+      z-index:1;
+      color:var(--gold-light);
+      text-transform:uppercase;
+      letter-spacing:5px;
+      font-size:12px;
+      font-weight:bold;
+      margin-bottom:16px;
+    }
+
+    h1{
+      position:relative;
+      z-index:1;
+      font-size:clamp(38px,5vw,62px);
+      line-height:.98;
+      letter-spacing:1px;
+      text-shadow:0 3px 25px rgba(0,0,0,.8);
+      margin-bottom:18px;
+    }
+
+    .tagline{
+      position:relative;
+      z-index:1;
+      max-width:500px;
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.7;
+    }
+
+    .details{
+      padding:70px 58px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .kicker{
+      color:var(--gold);
+      text-transform:uppercase;
+      letter-spacing:3px;
+      font-size:12px;
+      font-weight:bold;
+      margin-bottom:12px;
+    }
+
+    .details h2{
+      font-size:34px;
+      line-height:1.15;
+      margin-bottom:16px;
+    }
+
+    .intro{
+      color:var(--muted);
+      line-height:1.75;
+      font-size:16px;
+      max-width:510px;
+      margin-bottom:30px;
+    }
+
+    .rule{
+      height:1px;
+      background:linear-gradient(90deg,var(--line),transparent);
+      margin:6px 0 26px;
+    }
+
+    .info-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-bottom:28px;
+    }
+
+    .info{
+      padding:20px;
+      border:1px solid rgba(215,173,98,.16);
+      border-radius:16px;
+      background:rgba(255,255,255,.025);
+    }
+
+    .info .label{
+      color:var(--gold-light);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      margin-bottom:8px;
+      font-weight:bold;
+    }
+
+    .info p,.info a{
+      color:var(--cream);
+      text-decoration:none;
+      line-height:1.55;
+      font-size:15px;
+    }
+
+    .info a:hover{color:var(--gold-light)}
+
+    .hours{
+      display:grid;
+      gap:8px;
+      margin-bottom:30px;
+    }
+
+    .hour-row{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      padding-bottom:8px;
+      border-bottom:1px dashed rgba(215,173,98,.14);
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .hour-row strong{
+      color:var(--cream);
+      font-weight:normal;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:50px;
+      padding:0 22px;
+      border-radius:999px;
+      text-decoration:none;
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+      font-size:12px;
+      font-weight:bold;
+      transition:.25s ease;
+    }
+
+    .btn-primary{
+      color:#17110a;
+      background:linear-gradient(135deg,#f0d398,#c99747);
+      box-shadow:0 10px 30px rgba(215,173,98,.15);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 34px rgba(215,173,98,.24);
+    }
+
+    .btn-secondary{
+      color:var(--cream);
+      border:1px solid rgba(215,173,98,.35);
+      background:rgba(255,255,255,.025);
+    }
+
+    .btn-secondary:hover{
+      border-color:var(--gold);
+      color:var(--gold-light);
+      transform:translateY(-2px);
+    }
+
+    .social-follow{
+      margin-top:30px;
+      padding-top:24px;
+      border-top:1px solid rgba(215,173,98,.13);
+    }
+
+    .social-title{
+      color:var(--gold-light);
+      text-transform:uppercase;
+      letter-spacing:2.5px;
+      font-size:11px;
+      font-weight:bold;
+      margin-bottom:13px;
+    }
+
+    .social-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .social{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      min-height:42px;
+      padding:0 15px;
+      border:1px solid rgba(215,173,98,.18);
+      border-radius:999px;
+      color:var(--cream);
+      background:rgba(255,255,255,.025);
+      text-decoration:none;
+      font-family:Arial, sans-serif;
+      font-size:12px;
+      font-weight:700;
+      transition:.25s ease;
+    }
+
+    .social:hover{
+      transform:translateY(-2px);
+      border-color:var(--gold);
+      background:rgba(215,173,98,.08);
+      color:var(--gold-light);
+    }
+
+    .social-icon{
+      width:24px;
+      height:24px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      border:1px solid rgba(215,173,98,.35);
+      color:var(--gold-light);
+      font-weight:bold;
+      font-size:14px;
+      line-height:1;
+    }
+
+    footer{
+      border-top:1px solid rgba(215,173,98,.13);
+      padding:20px 58px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      color:#8f877b;
+      font-size:12px;
+    }
+
+    .footer-brand{
+      color:var(--gold-light);
+      letter-spacing:1px;
+    }
+
+    .age{
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+    }
+
+    @media (max-width:850px){
+      .shell{padding:20px 0}
+      .content{grid-template-columns:1fr}
+      .brand{
+        padding:60px 28px 45px;
+        border-right:0;
+        border-bottom:1px solid rgba(215,173,98,.14);
+      }
+      .details{padding:45px 28px 55px}
+      .logo-wrap{width:min(360px,78vw)}
+      .info-grid{grid-template-columns:1fr}
+      footer{padding:18px 28px;flex-direction:column;text-align:center}
+    }
+
+    @media (max-width:480px){
+      .shell{width:min(100% - 18px,1180px)}
+      .card{border-radius:20px}
+      .card::before{inset:8px;border-radius:15px}
+      .brand{padding:45px 20px 35px}
+      .details{padding:38px 20px 45px}
+      h1{font-size:40px}
+      .tagline{font-size:15px}
+      .details h2{font-size:29px}
+      .hour-row{font-size:13px}
+      .btn{width:100%}
+      .social-links{display:grid;grid-template-columns:1fr}
+      .social{justify-content:center}
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="card">
+      <div class="topline"></div>
+
+      <div class="content">
+        <div class="brand">
+          <div class="logo-wrap">
+            <img class="logo" src="logo.png" alt="G & S Liquor & Wines Lottery logo">
+          </div>
+
+          <div class="eyebrow">Ardmore, Tennessee</div>
+          <h1>Something Great<br>Is Coming.</h1>
+          <p class="tagline">
+            We're putting the finishing touches on the new G & S online experience.
+            Our website is coming soon — but the store is open and ready to serve you.
+          </p>
+        </div>
+
+        <div class="details">
+          <div class="kicker">G & S Liquor & Wines Lottery Station</div>
+          <h2>Your local destination for spirits, wine & lottery.</h2>
+          <p class="intro">
+            While we're building our new website, stop by the store or give us a call.
+            Follow us on Facebook and Instagram for new arrivals, store picks,
+            promotions and updates.
+          </p>
+
+          <div class="rule"></div>
+
+          <div class="info-grid">
+            <div class="info">
+              <div class="label">Visit Us</div>
+              <p>27115 Main St<br>Ardmore, TN 38449</p>
+            </div>
+            <div class="info">
+              <div class="label">Call Us</div>
+              <p><a href="tel:+19314272222">(931) 427-2222</a></p>
+            </div>
+            <div class="info">
+              <div class="label">Email</div>
+              <p><a href="mailto:gsliquor25@gmail.com">gsliquor25@gmail.com</a></p>
+            </div>
+            <div class="info">
+              <div class="label">Stay Updated</div>
+              <p>Facebook & Instagram</p>
+            </div>
+          </div>
+
+          <div class="kicker">Store Hours</div>
+          <div class="hours">
+            <div class="hour-row"><span>Monday – Thursday</span><strong>8 AM – 9 PM</strong></div>
+            <div class="hour-row"><span>Friday – Saturday</span><strong>8 AM – 10 PM</strong></div>
+            <div class="hour-row"><span>Sunday</span><strong>10 AM – 8 PM</strong></div>
+          </div>
+
+          <div class="actions">
+            <a class="btn btn-primary" href="tel:+19314272222">Call the Store</a>
+            <a class="btn btn-secondary" href="mailto:gsliquor25@gmail.com">Email Us</a>
+          </div>
+
+          <div class="social-follow">
+            <div class="social-title">Follow Us</div>
+            <div class="social-links">
+              <a class="social facebook" href="https://www.facebook.com/gsliquorsandwine" target="_blank" rel="noopener noreferrer" aria-label="Follow G & S Liquor on Facebook">
+                <span class="social-icon">f</span>
+                <span>Facebook</span>
+              </a>
+              <a class="social instagram" href="https://www.instagram.com/gsliquorsandwines/" target="_blank" rel="noopener noreferrer" aria-label="Follow G & S Liquor on Instagram">
+                <span class="social-icon">◎</span>
+                <span>Instagram</span>
+              </a>
+              <a class="social tiktok" href="https://www.tiktok.com/@galiquorsandwines" target="_blank" rel="noopener noreferrer" aria-label="Follow G & S Liquor on TikTok">
+                <span class="social-icon">♪</span>
+                <span>TikTok</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-brand">G & S LIQUOR & WINES LOTTERY</div>
+        <div class="age">Please drink responsibly • 21+</div>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
