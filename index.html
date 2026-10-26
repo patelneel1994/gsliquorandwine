@@ -3,32 +3,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#090909">
-  <title>G & S Liquor & Wines | Coming Soon</title>
-  <meta name="description" content="G & S Liquor & Wines Lottery Station — our new website is coming soon.">
+  <meta name="theme-color" content="#2a211b">
+  <title>G & S Liquor & Wines | Spirits, Wine, Kegs & Lottery in Ardmore, TN</title>
+  <meta name="description" content="G & S Liquor & Wines Lottery Station in Ardmore, TN — spirits, wine, kegs and lottery. Request a special item. Our new website is coming soon.">
   <style>
+    /* ==========================================================
+       1. DESIGN TOKENS — change a value here, it changes everywhere
+       ========================================================== */
     :root{
-      --bg:#070707;
-      --panel:#11100f;
-      --gold:#d7ad62;
-      --gold-light:#f1d59a;
-      --cream:#f4ead7;
-      --muted:#b9b0a1;
-      --line:rgba(215,173,98,.28);
+      /* color */
+      --gold:#e0b96f;
+      --gold-light:#f5dba6;
+      --cream:#faf1df;
+      --muted:#d6cbb8;
+      --subtle:#b3a998;
+      --ink:#17110a;                          /* text on gold buttons */
+      --border-faint:rgba(224,185,111,.14);   /* dividers */
+      --border:rgba(224,185,111,.28);         /* tiles, buttons */
+      --border-strong:rgba(224,185,111,.45);  /* highlighted tiles, icons */
+      --fill:rgba(255,255,255,.045);          /* tile / button background */
+      --fill-gold:rgba(224,185,111,.12);      /* gold tint */
+      --gold-gradient:linear-gradient(135deg,#f0d398,#c99747);
+
+      /* type */
+      --font:Georgia, "Times New Roman", serif;
+      --text-label:.75rem;                                   /* 12px  uppercase labels, buttons */
+      --text-sm:.875rem;                                     /* 14px  hours */
+      --text-base:1rem;                                      /* 16px  body */
+      --text-lead:clamp(1rem, .92rem + .4vw, 1.125rem);      /* 16–18px intro line */
+      --h3:clamp(1.2rem, 1.1rem + .4vw, 1.35rem);
+      --h2:clamp(1.75rem, 1.3rem + 1.6vw, 2.2rem);
+      --h1:clamp(2.4rem, 1.5rem + 4.4vw, 3.9rem);
+      --leading:1.7;
+      --track:2.5px;                                         /* uppercase label spacing */
+      --track-sm:1.5px;                                      /* buttons, chips */
+      --measure:34rem;                                       /* max paragraph width */
+
+      /* spacing scale */
+      --space-1:4px;
+      --space-2:8px;
+      --space-3:12px;
+      --space-4:16px;
+      --space-5:24px;
+      --space-6:32px;
+
+      /* layout — fluid, so phones need no overrides */
+      --gutter:clamp(9px, 2.5vw, 18px);       /* page edge */
+      --pad-x:clamp(20px, 5vw, 58px);         /* panel + footer sides */
+      --pad-y:clamp(40px, 7vw, 70px);         /* panel top / bottom */
+      --tile-pad:clamp(16px, 4vw, 22px);
+      --radius-lg:clamp(20px, 4vw, 28px);     /* main card */
+      --radius-md:16px;                       /* tiles */
+      --radius-pill:999px;                    /* buttons, chips */
+      --tap:48px;                             /* minimum touch target */
+      --ease:.25s ease;
     }
 
+    /* ==========================================================
+       2. BASE — element defaults, so nothing is styled one-by-one
+       ========================================================== */
     *{box-sizing:border-box;margin:0;padding:0}
 
-    html{scroll-behavior:smooth}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 
     body{
       min-height:100vh;
-      font-family:Georgia, "Times New Roman", serif;
+      font-family:var(--font);
+      font-size:var(--text-base);
+      line-height:var(--leading);
       color:var(--cream);
       background:
-        radial-gradient(circle at 50% 10%, rgba(215,173,98,.12), transparent 30%),
-        radial-gradient(circle at 15% 85%, rgba(112,54,23,.14), transparent 28%),
-        linear-gradient(135deg,#050505 0%,#11100e 48%,#050505 100%);
+        radial-gradient(circle at 50% 10%, rgba(224,185,111,.18), transparent 34%),
+        radial-gradient(circle at 15% 85%, rgba(160,82,38,.22), transparent 30%),
+        linear-gradient(135deg,#1f1813 0%,#33281f 48%,#1f1813 100%);
       overflow-x:hidden;
     }
 
@@ -45,33 +92,220 @@
       mask-image:linear-gradient(to bottom,black,transparent 80%);
     }
 
+    h1,h2,h3{line-height:1.15}
+    h1{font-size:var(--h1);line-height:1;letter-spacing:1px;text-shadow:0 3px 25px rgba(0,0,0,.8)}
+    h2{font-size:var(--h2)}
+    h3{font-size:var(--h3)}
+
+    h1,h2,h3,.lead{text-wrap:balance}   /* no one-word last lines in headings */
+
+    p{color:var(--muted);max-width:var(--measure);text-wrap:pretty}
+
+    a{color:inherit;text-decoration:none}
+
+    img,svg{display:block;max-width:100%}
+
+    :focus-visible{outline:2px solid var(--gold-light);outline-offset:3px}
+
+    /* ==========================================================
+       3. REUSABLE COMPONENTS
+       ========================================================== */
+
+    /* vertical rhythm: children of a stack are evenly spaced */
+    .stack{
+      display:grid;
+      gap:var(--space-3);
+      align-content:start;
+    }
+    .stack--tight{gap:var(--space-2)}
+    .stack--center{justify-items:center;text-align:center}
+
+    /* small uppercase heading — eyebrow, kicker, tile label, section title */
+    .label{
+      color:var(--gold-light);
+      font-size:var(--text-label);
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:var(--track);
+      line-height:1.4;
+    }
+
+    /* bordered surface — contact tiles, feature cards */
+    .tile{
+      padding:var(--tile-pad);
+      border:1px solid var(--border);
+      border-radius:var(--radius-md);
+      background:var(--fill);
+    }
+    .tile--accent{
+      border-color:var(--border-strong);
+      background:
+        linear-gradient(135deg,rgba(224,185,111,.14),rgba(224,185,111,.04)),
+        var(--fill);
+    }
+
+    /* grid that wraps itself: 2 columns when there is room, 1 when not */
+    .tiles{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));
+      gap:var(--space-3);
+    }
+
+    /* value text inside a tile */
+    .value{color:var(--cream);overflow-wrap:anywhere}
+    .value a:hover{color:var(--gold-light)}
+
+    /* buttons — primary (gold) and secondary (outline); also used for social links */
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:var(--space-2);
+      min-height:var(--tap);
+      padding:0 22px;
+      border:1px solid transparent;
+      border-radius:var(--radius-pill);
+      font-size:var(--text-label);
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:var(--track-sm);
+      transition:var(--ease);
+    }
+    .btn:hover{transform:translateY(-2px)}
+
+    .btn-primary{
+      color:var(--ink);
+      background:var(--gold-gradient);
+      box-shadow:0 10px 30px rgba(224,185,111,.18);
+    }
+    .btn-primary:hover{box-shadow:0 14px 34px rgba(224,185,111,.3)}
+
+    .btn-secondary{
+      color:var(--cream);
+      border-color:var(--border-strong);
+      background:var(--fill);
+    }
+    .btn-secondary:hover{
+      color:var(--gold-light);
+      border-color:var(--gold);
+      background:var(--fill-gold);
+    }
+
+    .btn-icon{
+      width:24px;
+      height:24px;
+      display:grid;
+      place-items:center;
+      border:1px solid var(--border-strong);
+      border-radius:50%;
+      color:var(--gold-light);
+      font-size:14px;
+      line-height:1;
+    }
+
+    /* row of buttons: sit side by side when they fit, stack when they don't */
+    .btn-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:var(--space-3);
+    }
+    .btn-row .btn{flex:1 1 11rem}
+    .btn-row--compact .btn{flex-basis:8.5rem}
+
+    /* non-clickable tag */
+    .chip{
+      padding:7px 14px;
+      border:1px solid var(--border);
+      border-radius:var(--radius-pill);
+      background:var(--fill-gold);
+      color:var(--gold-light);
+      font-size:var(--text-label);
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:var(--track-sm);
+      line-height:1.4;
+    }
+    .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-2)}
+
+    /* inline text link with underline */
+    .link{
+      justify-self:start;
+      padding:var(--space-2) 0 2px;
+      border-bottom:1px solid var(--border-strong);
+      color:var(--gold-light);
+      font-size:var(--text-label);
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:var(--track-sm);
+      transition:var(--ease);
+    }
+    .link:hover{color:#fff;border-color:#fff}
+
+    /* icon + text side by side; text drops below the icon on narrow screens */
+    .media{
+      display:flex;
+      flex-wrap:wrap;
+      gap:var(--space-4);
+    }
+    .media-body{flex:1 1 16rem}
+
+    .icon{
+      flex:none;
+      width:52px;
+      height:52px;
+      display:grid;
+      place-items:center;
+      border:1px solid var(--border-strong);
+      border-radius:50%;
+      background:var(--fill-gold);
+      color:var(--gold-light);
+    }
+    .icon svg{width:26px;height:26px}
+
+    /* label / value rows with a dashed divider */
+    .rows{display:grid;gap:var(--space-2)}
+    .row{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:0 var(--space-5);
+      padding-bottom:var(--space-2);
+      border-bottom:1px dashed var(--border-faint);
+      color:var(--muted);
+      font-size:var(--text-sm);
+    }
+    .row strong{color:var(--cream);font-weight:normal}
+
+    /* ==========================================================
+       4. PAGE LAYOUT
+       ========================================================== */
     .shell{
-      width:min(1180px, calc(100% - 36px));
+      width:min(1180px, 100% - var(--gutter) * 2);
       min-height:100vh;
       margin:auto;
       display:flex;
       align-items:center;
-      padding:42px 0;
+      padding:clamp(20px, 4vw, 42px) 0;
     }
 
     .card{
       width:100%;
       position:relative;
       overflow:hidden;
-      border:1px solid var(--line);
-      border-radius:28px;
+      border:1px solid var(--border);
+      border-radius:var(--radius-lg);
       background:
-        linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012) 45%,rgba(0,0,0,.22)),
-        rgba(12,11,10,.88);
-      box-shadow:0 35px 100px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.06);
+        linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.02) 45%,rgba(0,0,0,.10)),
+        rgba(56,44,36,.94);
+      box-shadow:0 35px 90px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.09);
     }
 
     .card::before{
       content:"";
       position:absolute;
-      inset:12px;
-      border:1px solid rgba(215,173,98,.12);
-      border-radius:20px;
+      inset:clamp(8px, 1.5vw, 12px);
+      border:1px solid var(--border-faint);
+      border-radius:calc(var(--radius-lg) - 8px);
       pointer-events:none;
     }
 
@@ -82,52 +316,51 @@
 
     .content{
       display:grid;
-      grid-template-columns: 1.02fr .98fr;
+      grid-template-columns:1.02fr .98fr;
       min-height:700px;
     }
 
-    .brand{
-      padding:70px 58px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      border-right:1px solid rgba(215,173,98,.14);
+    /* both halves of the card share one panel style */
+    .panel{
+      gap:var(--space-5);
+      padding:var(--pad-y) var(--pad-x);
+      align-content:center;
       position:relative;
     }
-
-    .brand::after{
+    .panel--brand{
+      gap:var(--space-4);
+      border-right:1px solid var(--border-faint);
+    }
+    .panel--brand > *{position:relative;z-index:1}
+    .panel--brand::after{
       content:"";
       position:absolute;
-      width:420px;
-      height:420px;
+      top:50%;
+      left:50%;
+      width:min(420px,90%);
+      aspect-ratio:1;
+      translate:-50% -50%;
       border-radius:50%;
-      background:radial-gradient(circle,rgba(215,173,98,.10),transparent 67%);
+      background:radial-gradient(circle,rgba(224,185,111,.12),transparent 67%);
       filter:blur(10px);
-      z-index:0;
+      pointer-events:none;
     }
 
     .logo-wrap{
       position:relative;
-      z-index:1;
-      width:min(430px,82%);
+      width:min(430px,88%);
       aspect-ratio:1;
-      display:grid;
-      place-items:center;
-      margin-bottom:34px;
+      margin-bottom:var(--space-4);
       filter:drop-shadow(0 22px 32px rgba(0,0,0,.65));
     }
-
     .logo-wrap::before{
       content:"";
       position:absolute;
       inset:-12px;
       border-radius:50%;
-      border:1px solid rgba(215,173,98,.25);
-      box-shadow:0 0 55px rgba(215,173,98,.08);
+      border:1px solid var(--border);
+      box-shadow:0 0 55px rgba(224,185,111,.1);
     }
-
     .logo{
       width:100%;
       height:100%;
@@ -135,275 +368,44 @@
       border-radius:50%;
     }
 
-    .eyebrow{
-      position:relative;
-      z-index:1;
-      color:var(--gold-light);
-      text-transform:uppercase;
-      letter-spacing:5px;
-      font-size:12px;
-      font-weight:bold;
-      margin-bottom:16px;
-    }
+    .lead{font-size:var(--text-lead)}
 
-    h1{
-      position:relative;
-      z-index:1;
-      font-size:clamp(38px,5vw,62px);
-      line-height:.98;
-      letter-spacing:1px;
-      text-shadow:0 3px 25px rgba(0,0,0,.8);
-      margin-bottom:18px;
-    }
-
-    .tagline{
-      position:relative;
-      z-index:1;
-      max-width:500px;
-      color:var(--muted);
-      font-size:17px;
-      line-height:1.7;
-    }
-
-    .details{
-      padding:70px 58px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
-
-    .kicker{
-      color:var(--gold);
-      text-transform:uppercase;
-      letter-spacing:3px;
-      font-size:12px;
-      font-weight:bold;
-      margin-bottom:12px;
-    }
-
-    .details h2{
-      font-size:34px;
-      line-height:1.15;
-      margin-bottom:16px;
-    }
-
-    .intro{
-      color:var(--muted);
-      line-height:1.75;
-      font-size:16px;
-      max-width:510px;
-      margin-bottom:30px;
-    }
-
-    .rule{
-      height:1px;
-      background:linear-gradient(90deg,var(--line),transparent);
-      margin:6px 0 26px;
-    }
-
-    .info-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-      margin-bottom:28px;
-    }
-
-    .info{
-      padding:20px;
-      border:1px solid rgba(215,173,98,.16);
-      border-radius:16px;
-      background:rgba(255,255,255,.025);
-    }
-
-    .info .label{
-      color:var(--gold-light);
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:2px;
-      margin-bottom:8px;
-      font-weight:bold;
-    }
-
-    .info p,.info a{
-      color:var(--cream);
-      text-decoration:none;
-      line-height:1.55;
-      font-size:15px;
-    }
-
-    .info a:hover{color:var(--gold-light)}
-
-    .hours{
-      display:grid;
-      gap:8px;
-      margin-bottom:30px;
-    }
-
-    .hour-row{
-      display:flex;
-      justify-content:space-between;
-      gap:20px;
-      padding-bottom:8px;
-      border-bottom:1px dashed rgba(215,173,98,.14);
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    .hour-row strong{
-      color:var(--cream);
-      font-weight:normal;
-    }
-
-    .actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:50px;
-      padding:0 22px;
-      border-radius:999px;
-      text-decoration:none;
-      text-transform:uppercase;
-      letter-spacing:1.5px;
-      font-size:12px;
-      font-weight:bold;
-      transition:.25s ease;
-    }
-
-    .btn-primary{
-      color:#17110a;
-      background:linear-gradient(135deg,#f0d398,#c99747);
-      box-shadow:0 10px 30px rgba(215,173,98,.15);
-    }
-
-    .btn-primary:hover{
-      transform:translateY(-2px);
-      box-shadow:0 14px 34px rgba(215,173,98,.24);
-    }
-
-    .btn-secondary{
-      color:var(--cream);
-      border:1px solid rgba(215,173,98,.35);
-      background:rgba(255,255,255,.025);
-    }
-
-    .btn-secondary:hover{
-      border-color:var(--gold);
-      color:var(--gold-light);
-      transform:translateY(-2px);
-    }
-
-    .social-follow{
-      margin-top:30px;
-      padding-top:24px;
-      border-top:1px solid rgba(215,173,98,.13);
-    }
-
-    .social-title{
-      color:var(--gold-light);
-      text-transform:uppercase;
-      letter-spacing:2.5px;
-      font-size:11px;
-      font-weight:bold;
-      margin-bottom:13px;
-    }
-
-    .social-links{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
-    .social{
-      display:inline-flex;
-      align-items:center;
-      gap:9px;
-      min-height:42px;
-      padding:0 15px;
-      border:1px solid rgba(215,173,98,.18);
-      border-radius:999px;
-      color:var(--cream);
-      background:rgba(255,255,255,.025);
-      text-decoration:none;
-      font-family:Arial, sans-serif;
-      font-size:12px;
-      font-weight:700;
-      transition:.25s ease;
-    }
-
-    .social:hover{
-      transform:translateY(-2px);
-      border-color:var(--gold);
-      background:rgba(215,173,98,.08);
-      color:var(--gold-light);
-    }
-
-    .social-icon{
-      width:24px;
-      height:24px;
-      display:grid;
-      place-items:center;
-      border-radius:50%;
-      border:1px solid rgba(215,173,98,.35);
-      color:var(--gold-light);
-      font-weight:bold;
-      font-size:14px;
-      line-height:1;
+    /* a titled block inside a panel, ruled off from what's above */
+    .section--ruled{
+      padding-top:var(--space-5);
+      border-top:1px solid var(--border-faint);
     }
 
     footer{
-      border-top:1px solid rgba(215,173,98,.13);
-      padding:20px 58px;
       display:flex;
+      flex-wrap:wrap;
       align-items:center;
       justify-content:space-between;
-      gap:20px;
-      color:#8f877b;
-      font-size:12px;
+      gap:var(--space-2) var(--space-5);
+      padding:var(--space-5) var(--pad-x);
+      border-top:1px solid var(--border-faint);
+      color:var(--subtle);
+      font-size:var(--text-label);
     }
+    .footer-brand{color:var(--gold-light);letter-spacing:1px}
+    .age{text-transform:uppercase;letter-spacing:var(--track-sm)}
 
-    .footer-brand{
-      color:var(--gold-light);
-      letter-spacing:1px;
-    }
-
-    .age{
-      text-transform:uppercase;
-      letter-spacing:1.5px;
-    }
-
+    /* ==========================================================
+       5. RESPONSIVE — one breakpoint: stack the two halves
+       ========================================================== */
     @media (max-width:850px){
-      .shell{padding:20px 0}
-      .content{grid-template-columns:1fr}
-      .brand{
-        padding:60px 28px 45px;
+      .content{grid-template-columns:1fr;min-height:0}
+      .panel--brand{
         border-right:0;
-        border-bottom:1px solid rgba(215,173,98,.14);
+        border-bottom:1px solid var(--border-faint);
       }
-      .details{padding:45px 28px 55px}
-      .logo-wrap{width:min(360px,78vw)}
-      .info-grid{grid-template-columns:1fr}
-      footer{padding:18px 28px;flex-direction:column;text-align:center}
+      footer{justify-content:center;text-align:center}
     }
 
-    @media (max-width:480px){
-      .shell{width:min(100% - 18px,1180px)}
-      .card{border-radius:20px}
-      .card::before{inset:8px;border-radius:15px}
-      .brand{padding:45px 20px 35px}
-      .details{padding:38px 20px 45px}
-      h1{font-size:40px}
-      .tagline{font-size:15px}
-      .details h2{font-size:29px}
-      .hour-row{font-size:13px}
-      .btn{width:100%}
-      .social-links{display:grid;grid-template-columns:1fr}
-      .social{justify-content:center}
+    @media (prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *{transition:none !important}
+      .btn:hover{transform:none}
     }
   </style>
 </head>
@@ -413,74 +415,121 @@
       <div class="topline"></div>
 
       <div class="content">
-        <div class="brand">
+        <div class="panel panel--brand stack stack--center">
           <div class="logo-wrap">
-            <img class="logo" src="logo.png" alt="G & S Liquor & Wines Lottery logo">
+            <img class="logo" src="logo-900.jpg" width="900" height="900" alt="G & S Liquor & Wines Lottery logo">
           </div>
 
-          <div class="eyebrow">Ardmore, Tennessee</div>
-          <h1>Something Great<br>Is Coming.</h1>
-          <p class="tagline">
-            We're putting the finishing touches on the new G & S online experience.
-            Our website is coming soon — but the store is open and ready to serve you.
+          <div class="label">Ardmore, Tennessee</div>
+          <h1>Cheers to<br>Something Great.</h1>
+          <p class="lead">
+            Our new website is coming soon — but the doors are open right now.
+            Spirits, wine, kegs and lottery, all at your local G&nbsp;&amp;&nbsp;S.
           </p>
+          <div class="chips">
+            <span class="chip">Spirits</span>
+            <span class="chip">Wine</span>
+            <span class="chip">Kegs</span>
+            <span class="chip">Lottery</span>
+            <span class="chip">Special Requests</span>
+          </div>
         </div>
 
-        <div class="details">
-          <div class="kicker">G & S Liquor & Wines Lottery Station</div>
-          <h2>Your local destination for spirits, wine & lottery.</h2>
-          <p class="intro">
-            While we're building our new website, stop by the store or give us a call.
-            Follow us on Facebook and Instagram for new arrivals, store picks,
-            promotions and updates.
-          </p>
+        <div class="panel stack">
+          <div class="stack">
+            <div class="label">G & S Liquor & Wines Lottery Station</div>
+            <h2>Spirits, wine, kegs & lottery — all in one stop.</h2>
+            <p>
+              Stocking up for the weekend or planning the party of the year?
+              Stop by or give us a call and we'll help you find the right bottle or keg.
+              Follow us on Facebook, Instagram and TikTok for new arrivals, store picks
+              and promotions.
+            </p>
+          </div>
 
-          <div class="rule"></div>
+          <div class="stack">
+            <div class="tile tile--accent media">
+              <div class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 3h10c1.6 3.2 1.6 14.8 0 18H7C5.4 17.8 5.4 6.2 7 3z"/>
+                  <path d="M5.7 8h12.6M5.7 16h12.6M12 11v2"/>
+                </svg>
+              </div>
+              <div class="media-body stack stack--tight">
+                <div class="label">Kegs Available</div>
+                <h3>Kegs for Every Occasion</h3>
+                <p>
+                  Hosting a party, tailgate, wedding or cookout? We sell kegs —
+                  stop in or call to reserve one for your next get-together.
+                </p>
+                <a class="link" href="tel:+19314272222">Call to reserve a keg →</a>
+              </div>
+            </div>
 
-          <div class="info-grid">
-            <div class="info">
+            <div class="tile tile--accent media">
+              <div class="icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>
+                </svg>
+              </div>
+              <div class="media-body stack stack--tight">
+                <div class="label">Special Requests</div>
+                <h3>Can't Find It? Just Ask.</h3>
+                <p>
+                  Looking for a bottle you don't see on the shelf? Request a special
+                  item and we'll do our best to bring it in for you.
+                </p>
+                <a class="link" href="mailto:gsliquor25@gmail.com?subject=Special%20Item%20Request&body=Hi%20G%20%26%20S%20Liquor%2C%0A%0AI%27m%20looking%20for%3A%0A%0AItem%20%2F%20brand%20%2F%20size%3A%20%0AName%3A%20%0APhone%3A%20%0A">Request an item →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="tiles">
+            <div class="tile stack stack--tight">
               <div class="label">Visit Us</div>
-              <p>27115 Main St<br>Ardmore, TN 38449</p>
+              <p class="value">27115 Main St<br>Ardmore, TN 38449</p>
             </div>
-            <div class="info">
+            <div class="tile stack stack--tight">
               <div class="label">Call Us</div>
-              <p><a href="tel:+19314272222">(931) 427-2222</a></p>
+              <p class="value"><a href="tel:+19314272222">(931) 427-2222</a></p>
             </div>
-            <div class="info">
+            <div class="tile stack stack--tight">
               <div class="label">Email</div>
-              <p><a href="mailto:gsliquor25@gmail.com">gsliquor25@gmail.com</a></p>
+              <p class="value"><a href="mailto:gsliquor25@gmail.com">gsliquor25@gmail.com</a></p>
             </div>
-            <div class="info">
+            <div class="tile stack stack--tight">
               <div class="label">Stay Updated</div>
-              <p>Facebook & Instagram</p>
+              <p class="value">Facebook, Instagram & TikTok</p>
             </div>
           </div>
 
-          <div class="kicker">Store Hours</div>
-          <div class="hours">
-            <div class="hour-row"><span>Monday – Thursday</span><strong>8 AM – 9 PM</strong></div>
-            <div class="hour-row"><span>Friday – Saturday</span><strong>8 AM – 10 PM</strong></div>
-            <div class="hour-row"><span>Sunday</span><strong>10 AM – 8 PM</strong></div>
+          <div class="stack">
+            <div class="label">Store Hours</div>
+            <div class="rows">
+              <div class="row"><span>Monday – Thursday</span><strong>8 AM – 9 PM</strong></div>
+              <div class="row"><span>Friday – Saturday</span><strong>8 AM – 10 PM</strong></div>
+              <div class="row"><span>Sunday</span><strong>10 AM – 8 PM</strong></div>
+            </div>
           </div>
 
-          <div class="actions">
+          <div class="btn-row">
             <a class="btn btn-primary" href="tel:+19314272222">Call the Store</a>
-            <a class="btn btn-secondary" href="mailto:gsliquor25@gmail.com">Email Us</a>
+            <a class="btn btn-secondary" href="mailto:gsliquor25@gmail.com?subject=Special%20Item%20Request&body=Hi%20G%20%26%20S%20Liquor%2C%0A%0AI%27m%20looking%20for%3A%0A%0AItem%20%2F%20brand%20%2F%20size%3A%20%0AName%3A%20%0APhone%3A%20%0A">Request an Item</a>
           </div>
 
-          <div class="social-follow">
-            <div class="social-title">Follow Us</div>
-            <div class="social-links">
-              <a class="social facebook" href="https://www.facebook.com/gsliquorsandwine" target="_blank" rel="noopener noreferrer" aria-label="Follow G & S Liquor on Facebook">
-                <span class="social-icon">f</span>
+          <div class="stack section--ruled">
+            <div class="label">Follow Us</div>
+            <div class="btn-row btn-row--compact">
+              <a class="btn btn-secondary" href="https://www.facebook.com/gsliquorsandwine" target="_blank" rel="noopener noreferrer" aria-label="Follow G & S Liquor on Facebook">
+                <span class="btn-icon">f</span>
                 <span>Facebook</span>
               </a>
-              <a class="social instagram" href="https://www.instagram.com/gsliquorsandwines/" target="_blank" rel="noopener noreferrer" aria-label="Follow G & S Liquor on Instagram">
-                <span class="social-icon">◎</span>
+              <a class="btn btn-secondary" href="https://www.instagram.com/gsliquorsandwines/" target="_blank" rel="noopener noreferrer" aria-label="Follow G & S Liquor on Instagram">
+                <span class="btn-icon">◎</span>
                 <span>Instagram</span>
               </a>
-              <a class="social tiktok" href="https://www.tiktok.com/@galiquorsandwines" target="_blank" rel="noopener noreferrer" aria-label="Follow G & S Liquor on TikTok">
-                <span class="social-icon">♪</span>
+              <a class="btn btn-secondary" href="https://www.tiktok.com/@gsliquorsandwines" target="_blank" rel="noopener noreferrer" aria-label="Follow G & S Liquor on TikTok">
+                <span class="btn-icon">♪</span>
                 <span>TikTok</span>
               </a>
             </div>
