@@ -1,0 +1,84 @@
+[
+  {
+    "id": "grinch-lemon-drop",
+    "title": "Grinch Lemon Drop Freezer Door",
+    "category": "Vodka",
+    "minutes": 10,
+    "yieldLabel": "Large batch · about 77 fl oz",
+    "chill": "Freeze for 5–6 hours, or refrigerate until chilled. Freezer consistency may vary.",
+    "attribution": "Recipe shared on Facebook. Original creator not identified.",
+    "description": "A bright green, lemony holiday batch with Tito’s vodka, green Kool-Aid and a little edible sparkle. Allow extra time to chill.",
+    "ingredients": [
+      "59 fl oz Tito’s vodka (one 1.75 L bottle)",
+      "12 fl oz freshly squeezed lemon juice",
+      "6 fl oz simple syrup",
+      "½ packet green Kool-Aid",
+      "Green edible glitter, to taste"
+    ],
+    "steps": [
+      "Combine the vodka, lemon juice, simple syrup and half a packet of green Kool-Aid in a large pitcher or mixing container.",
+      "Stir well until fully combined.",
+      "Add green edible glitter and stir again to distribute it evenly.",
+      "Transfer to a pitcher or divide between freezer-safe containers, leaving space for expansion. The full batch will not fit in the original vodka bottle.",
+      "For the freezer-door version, freeze for 5–6 hours; the original recipe describes a slushy texture, though the final consistency depends on your freezer.",
+      "If using a pitcher instead, refrigerate until ready to serve.",
+      "Stir before serving. Pour individual servings and enjoy responsibly."
+    ],
+    "note": "The liquids total about 77 fl oz (2.28 L). Use a container larger than the original 1.75 L bottle. Preparation time is approximate; chilling time is additional."
+  },
+  {
+    "id": "old-fashioned",
+    "title": "The Old Fashioned",
+    "category": "Whiskey",
+    "minutes": 5,
+    "description": "A timeless mix of whiskey, bitters and a little sweetness. Keep it simple; let the spirit shine.",
+    "ingredients": [
+      "2 oz bourbon or rye whiskey",
+      "1 tsp sugar",
+      "2–3 dashes aromatic bitters",
+      "1 tsp water",
+      "Orange peel and a large ice cube"
+    ],
+    "steps": [
+      "Stir the sugar, bitters and water in a rocks glass until the sugar dissolves.",
+      "Add the whiskey and a large ice cube. Stir until chilled.",
+      "Twist the orange peel over the glass to release its oils, then add it as a garnish."
+    ]
+  },
+  {
+    "id": "classic-margarita",
+    "title": "The Classic Margarita",
+    "category": "Tequila",
+    "minutes": 5,
+    "description": "Bright lime, smooth tequila and a salt-kissed rim. A refreshing classic for your recipe collection.",
+    "ingredients": [
+      "2 oz blanco tequila",
+      "1 oz fresh lime juice",
+      "1 oz orange liqueur",
+      "Salt, ice and a lime wedge"
+    ],
+    "steps": [
+      "Run a lime wedge around half the rim of a glass and dip that side in salt. Fill with ice.",
+      "Add tequila, lime juice and orange liqueur to a shaker with ice.",
+      "Shake until chilled, strain into the prepared glass, and garnish with lime."
+    ]
+  },
+  {
+    "id": "moscow-mule",
+    "title": "The Moscow Mule",
+    "category": "Vodka",
+    "minutes": 5,
+    "description": "Crisp ginger, a squeeze of lime and vodka over ice. Refreshingly easy to make at home.",
+    "ingredients": [
+      "2 oz vodka",
+      "½ oz fresh lime juice",
+      "4 oz ginger beer",
+      "Ice and a lime wedge"
+    ],
+    "steps": [
+      "Fill a mug or tall glass with ice.",
+      "Pour in the vodka and lime juice, then top with ginger beer.",
+      "Stir gently and garnish with a lime wedge."
+    ]
+  }
+]
